@@ -1,0 +1,14 @@
+{
+  "name": "file-manager",
+  "version": "1.7.1",
+  "devDependencies": {
+    "node-sass": "~0.9.3",
+    "grunt": "~0.4.1",
+    "load-grunt-tasks": "~0.6.0",
+    "time-grunt": "~0.4.0",
+    "grunt-sass": "~0.8.1",
+    "grunt-autoprefixer": "~1.0.0",
+    "grunt-notify": "^0.3.1",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}

@@ -1,0 +1,7 @@
+/nbproject/private/
+.DS_Store
+node_modules
+bower_components
+.sass-cache
+*.map
+*.min.css
