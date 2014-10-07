@@ -1,6 +1,7 @@
 {
-  "name": "file-manager",
-  "version": "1.7.1",
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "private": true,
   "devDependencies": {
     "node-sass": "~0.9.3",
     "grunt": "~0.4.1",
@@ -12,3 +13,5 @@
     "grunt-contrib-watch": "~0.5.3"
   }
 }
+
+

@@ -1,0 +1,7 @@
+private/
+node_modules/
+bower_components/
+.DS_Store
+.sass-cache
+*.map
+*.min.css

@@ -82,15 +82,6 @@ module.exports = yeoman.generators.Base.extend({
                 name: 'license',
                 message: 'What is the license?',
                 default: 'GPLv2'
-            },
-            {
-                type: 'checkbox',
-                name: 'features',
-                message: 'What features would you like installed?',
-                choices: [
-                    { name: 'Sass with Compass', checked: true, value: 'sass' },
-                    { name: 'Grunt', checked: true, value: 'grunt' }
-                ]
             }
         ], function(answers) {
             this.name = answers.name;
@@ -100,7 +91,6 @@ module.exports = yeoman.generators.Base.extend({
             this.author = answers.author;
             this.author_uri = answers.author_uri;
             this.license = answers.license;
-            this.features = answers.features;
 
             // get abbreviation
             this.name_abbr = '';
@@ -117,18 +107,8 @@ module.exports = yeoman.generators.Base.extend({
      * Creates config files.
      */
     configTask: function() {
-        //this.sourceRoot(this.name.toLowerCase());
         this.destinationRoot(this.name.toLowerCase());
         this.config.save();
-    },
-
-    /**
-     * Install dependencies.
-     */
-    dependencyInstall: function() {
-        var done = this.async();
-
-        //this.npmInstall(this.features, { saveDev: true }, done);
     },
 
     /**
@@ -145,44 +125,62 @@ module.exports = yeoman.generators.Base.extend({
      * Creates the necessary files for the plugin.
      */
     templatesTask: function() {
-        var context = {
-            name: this.name,
-            name_upper: this.name.toUpperCase(),
-            name_lower: this.name.toLowerCase(),
-            name_abbr: this.name_abbr,
-            name_abbr_upper: this.name_abbr.toUpperCase(),
-            name_abbr_lower: this.name_abbr.toLowerCase(),
-            uri: this.uri,
-            description: this.description,
-            version: this.version,
-            author: this.author,
-            author_uri: this.author_uri,
-            license: this.license,
-            features: this.features
-        };
+        var options = [],
+            context = {
+                name: this.name,
+                name_upper: this.name.toUpperCase(),
+                name_lower: this.name.toLowerCase(),
+                name_abbr: this.name_abbr,
+                name_abbr_upper: this.name_abbr.toUpperCase(),
+                name_abbr_lower: this.name_abbr.toLowerCase(),
+                uri: this.uri,
+                description: this.description,
+                version: this.version,
+                author: this.author,
+                author_uri: this.author_uri,
+                license: this.license,
+                features: this.features
+            };
 
         // root
-        this.template('_main.template', context.name_lower + '.php', context, []);
+        this.template('_main.template', context.name_lower + '.php', context, options);
+        this.template('_readme.md', 'readme.md', context, options);
+        this.template('_contributing.md', 'contributing.md', context, options);
+        this.template('_.gitignore', '.gitignore', context, options);
+        this.template('_.gitattributes', '.gitattributes', context, options);
+        this.template('_.editorconfig', '.editorconfig', context, options);
+        this.template('_Gruntfile.js', 'Gruntfile.js', context, options);
+        this.template('_package.json', 'package.json', context, options);
+        this.template('_.bowerrc', '.bowerrc', context, options);
+        this.template('_bower.json', 'bower.json', context, options);
 
         // inc root
-        this.template('inc/_env.template', 'inc/class-' + context.name_abbr_lower + '-env.php', context, []);
-        this.template('inc/_items-table.template', 'inc/class-' + context.name_abbr_lower + '-items-table.php', context, []);
-        this.template('inc/_messages.template', 'inc/class-' + context.name_abbr_lower + '-messages.php', context, []);
-        this.template('inc/_taxonomy.template', 'inc/class-' + context.name_abbr_lower + '-taxonomy.php', context, []);
+        this.template('inc/_env.template', 'inc/class-' + context.name_abbr_lower + '-env.php', context, options);
+        this.template('inc/_items-table.template', 'inc/class-' + context.name_abbr_lower + '-items-table.php', context, options);
+        this.template('inc/_messages.template', 'inc/class-' + context.name_abbr_lower + '-messages.php', context, options);
+        this.template('inc/_taxonomy.template', 'inc/class-' + context.name_abbr_lower + '-taxonomy.php', context, options);
 
         // models root
-        this.template('inc/models/_file.template', 'inc/models/' + context.name_abbr_lower + '-file.php', context, []);
-        this.template('inc/models/_folder.template', 'inc/models/' + context.name_abbr_lower + '-folder.php', context, []);
-        this.template('inc/models/_item.template', 'inc/models/' + context.name_abbr_lower + '-item.php', context, []);
+        this.template('inc/models/_file.template', 'inc/models/' + context.name_abbr_lower + '-file.php', context, options);
+        this.template('inc/models/_folder.template', 'inc/models/' + context.name_abbr_lower + '-folder.php', context, options);
+        this.template('inc/models/_item.template', 'inc/models/' + context.name_abbr_lower + '-item.php', context, options);
 
         // controllers root
-        this.template('inc/controllers/_admin-controller.template', 'inc/controllers/class-' + context.name_abbr_lower + '-admin-controller.php', context, []);
-        this.template('inc/controllers/_controller.template', 'inc/controllers/class-' + context.name_abbr_lower + '-controller.php', context, []);
+        this.template('inc/controllers/_admin-controller.template', 'inc/controllers/class-' + context.name_abbr_lower + '-admin-controller.php', context, options);
+        this.template('inc/controllers/_controller.template', 'inc/controllers/class-' + context.name_abbr_lower + '-controller.php', context, options);
 
         // controllers/views root
+        // none
 
         // controllers/views/main root
-        this.template('inc/controllers/views/main/_index.template', 'inc/controllers/views/main/index.php', context, []);
-        this.template('inc/controllers/views/main/_settings.template', 'inc/controllers/views/main/settings.php', context, []);
+        this.template('inc/controllers/views/main/_index.template', 'inc/controllers/views/main/index.php', context, options);
+        this.template('inc/controllers/views/main/_settings.template', 'inc/controllers/views/main/settings.php', context, options);
+    },
+
+    /**
+     * Install dependencies
+     */
+    dependencyTask: function() {
+        this.installDependencies({});
     }
 });
