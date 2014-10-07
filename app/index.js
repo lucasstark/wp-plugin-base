@@ -25,17 +25,7 @@ module.exports = yeoman.generators.Base.extend({
                 type: 'input',
                 name: 'name',
                 message: 'What is your plugin name?',
-                default: this.appname,
-
-                /**
-                 * Strip out non-alpha chars except dash and uppercase the name.
-                 *
-                 * @param answer
-                 * @returns {*|XML|string|void}
-                 */
-                filter: function(answer) {
-                    return this._.slugify(answer);
-                }
+                default: this.appname
             },
             {
                 type: 'input',
@@ -75,6 +65,7 @@ module.exports = yeoman.generators.Base.extend({
             }
         ], function(answers) {
             this.name = answers.name;
+            this.slug = this._.slugify(this.name);
             this.uri = answers.uri;
             this.description = answers.description;
             this.version = answers.version;
@@ -97,7 +88,7 @@ module.exports = yeoman.generators.Base.extend({
      * Creates config files.
      */
     configTask: function() {
-        this.destinationRoot(this.name.toLowerCase());
+        this.destinationRoot(this.slug.toLowerCase());
         this.config.save();
     },
 
@@ -105,8 +96,6 @@ module.exports = yeoman.generators.Base.extend({
      * Creates the template dirs.
      */
     dirTask: function() {
-        var nameLower = this.name.toLowerCase();
-
         this.mkdir('inc/models');
         this.mkdir('inc/controllers/views/main');
     },
@@ -123,6 +112,7 @@ module.exports = yeoman.generators.Base.extend({
                 name_abbr: this.name_abbr,
                 name_abbr_upper: this.name_abbr.toUpperCase(),
                 name_abbr_lower: this.name_abbr.toLowerCase(),
+                slug: this.slug,
                 uri: this.uri,
                 description: this.description,
                 version: this.version,
@@ -133,7 +123,7 @@ module.exports = yeoman.generators.Base.extend({
             };
 
         // root
-        this.template('_main.template', context.name_lower + '.php', context, options);
+        this.template('_main.template', context.slug + '.php', context, options);
         this.template('_readme.md', 'readme.md', context, options);
         this.template('_contributing.md', 'contributing.md', context, options);
         this.template('_.gitignore', '.gitignore', context, options);
