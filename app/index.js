@@ -55,7 +55,7 @@ module.exports = yeoman.generators.Base.extend({
                 type: 'input',
                 name: 'author_uri',
                 message: 'What is the author\'s URI?',
-                default: '0.0.1'
+                default: 'http://lucasstark.com'
             },
             {
                 type: 'input',
@@ -85,17 +85,17 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     /**
-     * Creates config files.
+     * Configuration.
      */
     configTask: function() {
         this.destinationRoot(this.slug.toLowerCase());
-        this.config.save();
     },
 
     /**
      * Creates the template dirs.
      */
     dirTask: function() {
+        this.destinationRoot(this.slug.toLowerCase());
         this.mkdir('inc/models');
         this.mkdir('inc/controllers/views/main');
     },
