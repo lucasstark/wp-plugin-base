@@ -82,7 +82,7 @@ module.exports = function(grunt) {
           'autoprefixer:dev',
           'notify:sass'
         ]
-      },
+      }
     }
   });
 
