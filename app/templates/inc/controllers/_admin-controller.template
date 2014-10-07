@@ -3,7 +3,7 @@
 class <%= name_abbr_upper %>_Admin_Controller extends <%= name_abbr_upper %>_Controller {
 	private static $instance;
 
-	public static function regsiter(){
+	public static function register(){
 		if (self::$instance == null){
 			self::$instance = new <%= name_abbr_upper %>_Admin_Controller();
 		}
