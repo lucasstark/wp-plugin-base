@@ -53,10 +53,7 @@ module.exports = yeoman.generators.Base.extend({
                 type: 'input',
                 name: 'version',
                 message: 'What is your plugin version?',
-                default: '0.0.1',
-                validation: function(version) {
-                    return version;
-                }
+                default: '0.0.1'
             },
             {
                 type: 'input',
