@@ -34,14 +34,7 @@ module.exports = yeoman.generators.Base.extend({
                  * @returns {*|XML|string|void}
                  */
                 filter: function(answer) {
-
-                    // spaces to underscores
-                    answer = answer.replace(/\s/g, '-');
-
-                    // non-alpha removal (except dash)
-                    answer = answer.replace(/[^\w-]/g, '');
-
-                    return answer;
+                    return this._.slugify(answer);
                 }
             },
             {
