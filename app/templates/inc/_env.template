@@ -1,0 +1,5 @@
+<?php
+
+class <%= name_abbr_upper %>_Env {
+    public static $POST_TYPE_FOLDER = '<%= name_abbr_lower %>_folder';
+}

@@ -1,0 +1,49 @@
+<?php
+
+class <%= name_abbr_upper %>_Taxonomy {
+
+	private static $instance;
+
+	public static function register() {
+		if ( self::$instance == null ) {
+			self::$instance = new <%= name_abbr_upper %>_Taxonomy();
+		}
+	}
+
+	public function __construct() {
+		add_action( 'init', array($this, 'register_post_types'), 0 );
+	}
+
+	public function register_post_types() {
+		register_post_type( <%= name_abbr_upper %>_Env::$POST_TYPE_FOLDER, array(
+		    'labels' => array(
+			'name' => __( 'Collections', '<%= name_abbr_lower %>' ),
+			'singular_name' => __( 'Collection', '<%= name_abbr_lower %>' ),
+			'add_new' => __( 'Add Collection', '<%= name_abbr_lower %>' ),
+			'add_new_item' => __( 'Add New Collection', '<%= name_abbr_lower %>' ),
+			'edit' => __( 'Edit', '<%= name_abbr_lower %>' ),
+			'edit_item' => __( 'Edit Collection', '<%= name_abbr_lower %>' ),
+			'new_item' => __( 'New Collection', '<%= name_abbr_lower %>' ),
+			'view' => __( 'View Collection', '<%= name_abbr_lower %>' ),
+			'view_item' => __( 'View Collection', '<%= name_abbr_lower %>' ),
+			'search_items' => __( 'Search Collections', '<%= name_abbr_lower %>' ),
+			'not_found' => __( 'No Collections found', '<%= name_abbr_lower %>' ),
+			'not_found_in_trash' => __( 'No Collections found in trash', '<%= name_abbr_lower %>' ),
+			'parent' => __( 'Parent Contact', '<%= name_abbr_lower %>' )
+		    ),
+		    'description' => __( 'This is where you can add new folders and collections to your site.', '<%= name_abbr_lower %>' ),
+		    'public' => true,
+		    'show_ui' => true,
+		    'publicly_queryable' => true,
+		    'exclude_from_search' => false,
+		    'hierarchical' => true,
+		    'rewrite' => false,
+		    'query_var' => true,
+		    'supports' => array('title', 'excerpt'),
+		    'has_archive' => false,
+		    'show_in_nav_menus' => true,
+
+		) );
+	}
+
+}

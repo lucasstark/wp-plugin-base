@@ -1,30 +1,29 @@
 <?php
 
 /**
- * Plugin Name: WP Media Collection Manager
- * Plugin URI: #
- * Description: Organize your media into folders and collections
- * Version: 1.0.0
- * Author: Lucas Stark
- * Author URI: http://www.lucasstark.com/
- * License: GPL2
+ * Plugin Name: <%= name %>
+ * Plugin URI: <%= uri %>
+ * Description: <%= description %>
+ * Version: <%= version %>
+ * Author: <%= author %>
+ * Author URI: <%= author_uri %>
+ * License: <%= license %>
  */
 
+class <%= name_abbr_upper %> {
+	public static $version = '<%= version %>';
 
-class MCM {
-	public static $version = '1.0.0';
-	
 	private static $instance;
-	
+
 	public static function register(){
 		if (self::$instance == null){
-			self::$instance = new MCM();
+			self::$instance = new <%= name_abbr_upper %>();
 		}
 	}
-	
+
 	public static $message_controller;
-	
-	
+
+
 	public function __construct() {
 		// Auto-load classes on demand
 		if ( function_exists( "__autoload" ) ) {
@@ -32,23 +31,23 @@ class MCM {
 		}
 
 		spl_autoload_register( array($this, 'autoload') );
-		
-		
-		self::$message_controller = new MCM_Messages();
-		
-		MCM_Taxonomy::register();
-		
+
+
+		self::$message_controller = new <%= name_abbr_upper %>_Messages();
+
+		<%= name_abbr_upper %>_Taxonomy::register();
+
 		if (  is_admin() && !defined( 'DOING_AJAX')){
-			add_action( 'admin_notices', array(MCM::$message_controller, 'show_messages') );
+			add_action( 'admin_notices', array(<%= name_abbr_upper %>::$message_controller, 'show_messages') );
 		}
-		
+
 		if (  is_admin() ){
-			MCM_Admin_Controller::regsiter();
+			<%= name_abbr_upper %>_Admin_Controller::regsiter();
 		}
-		
+
 	}
-	
-	
+
+
 	public function autoload( $class ) {
 		$path = null;
 		$class = strtolower( $class );
@@ -69,21 +68,21 @@ class MCM {
 			return;
 		}
 
-		if ( strpos( $class, 'mcm_' ) === 0 ) {
+		if ( strpos( $class, '<%= name_abbr_lower %>_' ) === 0 ) {
 			$path = self::plugin_path() . '/inc/';
 		}
 
 		if ( $path && is_readable( $path . $file ) ) {
 			include_once( $path . $file );
 			return;
-		}	
+		}
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	public function show_admin_notices() {
 		$this->message_handler->show_messages();
 	}
@@ -99,7 +98,7 @@ class MCM {
 	 * @return string
 	 */
 	public static function nonce_field( $action, $referer = true, $echo = true ) {
-		return wp_nonce_field( 'mcm-action-' . $action, '_n', $referer, $echo );
+		return wp_nonce_field( '<%= name_abbr_lower %>-action-' . $action, '_n', $referer, $echo );
 	}
 
 	/**
@@ -110,7 +109,7 @@ class MCM {
 	 * @return string
 	 */
 	public static function nonce_url( $action, $url = '' ) {
-		return add_query_arg( array('_n' => wp_create_nonce( 'mcm-action-' . $action ), 'mcm-action' => $action), $url );
+		return add_query_arg( array('_n' => wp_create_nonce( '<%= name_abbr_lower %>-action-' . $action ), '<%= name_abbr_lower %>-action' => $action), $url );
 	}
 
 	public static function verify_nonce( $action, $method = '_POST', $error_message = false ) {
@@ -118,7 +117,7 @@ class MCM {
 		$name = '_n';
 
 		if ( $error_message === false )
-			$error_message = __( 'Action failed. Please refresh the page and retry.', 'mcm' );
+			$error_message = __( 'Action failed. Please refresh the page and retry.', '<%= name_abbr_lower %>' );
 
 
 		if ( isset( $_REQUEST[$name] ) && wp_verify_nonce( $_REQUEST[$name], $action ) )
@@ -153,4 +152,4 @@ class MCM {
 }
 
 
-MCM::register();
+<%= name_abbr_upper %>::register();

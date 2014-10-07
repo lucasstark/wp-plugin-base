@@ -1,0 +1,3 @@
+<div class="wrap">
+	<h2><?php _e('Media Manager Settings', '<%= name_abbr_lower %>'); ?></h2>
+</div>

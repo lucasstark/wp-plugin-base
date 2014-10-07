@@ -4,7 +4,7 @@ if ( !class_exists( 'WP_List_Table' ) ) :
 	require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 endif;
 
-class MCM_Items_Table extends WP_List_Table {
+class <%= name_abbr_upper %>_Items_Table extends WP_List_Table {
 
 	public $folder = 0;
 
@@ -20,7 +20,7 @@ class MCM_Items_Table extends WP_List_Table {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param Ellucian_File_Manager_Log_Entry $item
 	 */
 	public function column_date( $item ) {
@@ -32,7 +32,7 @@ class MCM_Items_Table extends WP_List_Table {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param Ellucian_File_Manager_Log_Entry $item
 	 */
 	public function column_title( $item ) {
@@ -68,7 +68,7 @@ class MCM_Items_Table extends WP_List_Table {
 		$query = new WP_Query( array(
 		    'post_type' => array(
 			'attachment',
-			MCM_Env::$POST_TYPE_FOLDER
+			<%= name_abbr_upper %>_Env::$POST_TYPE_FOLDER
 		    ),
 		    'post_status' => array(
 			'publish',

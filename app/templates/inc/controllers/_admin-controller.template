@@ -1,0 +1,43 @@
+<?php
+
+class <%= name_abbr_upper %>_Admin_Controller extends <%= name_abbr_upper %>_Controller {
+	private static $instance;
+
+	public static function regsiter(){
+		if (self::$instance == null){
+			self::$instance = new <%= name_abbr_upper %>_Admin_Controller();
+		}
+	}
+
+	private $root_slug;
+
+	public function __construct() {
+		parent::__construct('main');
+
+		add_action('admin_menu', array($this, 'on_admin_menu'));
+		add_action('admin_enqueue_scripts', array($this, 'on_admin_enqueue_scripts'));
+
+	}
+
+	public function on_admin_menu() {
+		$this->root_slug = add_menu_page(__('Media Manager'), __('Media Manager'), 'upload_files', '<%= name_abbr_lower %>', array($this, 'do_<%= name_abbr_lower %>_page'));
+		add_submenu_page($this->root_slug, __('Settings', '<%= name_abbr_lower %>'), __('Settings', '<%= name_abbr_lower %>'), 'manage_options', '<%= name_abbr_lower %>-settings', array($this, 'do_<%= name_abbr_lower %>_settings_page'));
+	}
+
+	public function on_admin_enqueue_scripts( $handle ){
+		if ( strpos( $handle, '<%= name_abbr_lower %>' ) !== false ) {
+			wp_enqueue_style('<%= name_abbr_lower %>-admin', <%= name_abbr_upper %>::plugin_url() . '/assets/css/<%= name_abbr_lower %>-admin.css', null, <%= name_abbr_upper %>::$version );
+		}
+	}
+
+	public function do_<%= name_abbr_lower %>_page() {
+
+		$this->view();
+
+	}
+
+	public function do_<%= name_abbr_lower %>_settings_page(){
+		$this->view('settings');
+	}
+
+}

@@ -1,0 +1,9 @@
+<?php
+	$table = new <%= name_abbr_upper %>_Items_Table(isset($_REQUEST['folder']) ? $_REQUEST['folder'] : 0);
+	$table->prepare_items();
+?>
+
+<div class="wrap">
+	<h2><?php _e('Media Manager', '<%= name_abbr_lower %>'); ?></h2>
+	<?php $table->display(); ?>
+</div>

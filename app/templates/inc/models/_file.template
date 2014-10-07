@@ -1,0 +1,5 @@
+<?php
+
+class <%= name_abbr_upper %>_File extends <%= name_abbr_upper %>_Item {
+
+}

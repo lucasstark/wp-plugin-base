@@ -1,0 +1,5 @@
+<?php
+
+class <%= name_abbr_upper %>_Folder extends <%= name_abbr_upper %>_Item {
+
+}

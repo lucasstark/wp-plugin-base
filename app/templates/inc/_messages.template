@@ -50,13 +50,13 @@ if ( !defined( 'ABSPATH' ) )
  * @since 1.0
  */
 
-class MCM_Messages {
+class <%= name_abbr_upper %>_Messages {
 
 	/** transient message prefix */
-	const MESSAGE_TRANSIENT_PREFIX = '_mcm_admin_message_';
+	const MESSAGE_TRANSIENT_PREFIX = '_<%= name_abbr_lower %>_admin_message_';
 
 	/** the message id GET name */
-	const MESSAGE_ID_GET_NAME = 'mcmmid';
+	const MESSAGE_ID_GET_NAME = '<%= name_abbr_lower %>mid';
 
 	/** @var string unique message identifier */
 	private $message_id;
