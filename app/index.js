@@ -95,7 +95,6 @@ module.exports = yeoman.generators.Base.extend({
      * Creates the template dirs.
      */
     dirTask: function() {
-        this.destinationRoot(this.slug.toLowerCase());
         this.mkdir('inc/models');
         this.mkdir('inc/controllers/views/main');
     },
@@ -161,6 +160,6 @@ module.exports = yeoman.generators.Base.extend({
      * Install dependencies
      */
     dependencyTask: function() {
-        this.installDependencies({});
+        //this.installDependencies();
     }
 });
