@@ -160,6 +160,6 @@ module.exports = yeoman.generators.Base.extend({
      * Install dependencies
      */
     dependencyTask: function() {
-        //this.installDependencies();
+        this.installDependencies();
     }
 });
